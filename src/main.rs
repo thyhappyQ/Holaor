@@ -70,3 +70,28 @@ fn get_info_from_id_card(id_card:&String)->Option<String>{
 fn get_age(id_card:&String)->Option<u8>{
     None
 }
+
+const NORMAL_MAX_AGE:u8 = 130;
+const NORMAL_MIN_AGE:u8 = 0;
+
+enum AgeResult{
+    Large = 0,
+    Normal = 1,
+    Few = 2
+}
+
+fn varify_age(age:&u8)->AgeResult{
+    // Check if the age is in a normal range
+
+    // Check if it is too big
+    if *age >= NORMAL_MAX_AGE{
+        return AgeResult::Large;
+    }
+
+    // Check if it is too few
+    if *age < NORMAL_MIN_AGE{
+        return AgeResult::Few;
+    }
+
+    AgeResult::Normal
+}
