@@ -8,15 +8,19 @@ fn main() {
 
     let id_card = get_id_card();
 
+    // Verify the ID card
+    let result = verify_id_card(&id_card);
+
     // Print the result
     print!("The form of your ID card is ");
-    if verify_id_card(&id_card) {
+    if result {
         // If there is not any error,we print a green result
         print!("{}", "legal".green());
     }
     else{
         // Or we print a red result
-        print!("{}", "not correct".red());
+        print!("{}!", "not correct".red());
+        exit(-3);
     }
     println!("!");
 
