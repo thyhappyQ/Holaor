@@ -15,14 +15,13 @@ fn main() {
     print!("The form of your ID card is ");
     if result {
         // If there is not any error,we print a green result
-        print!("{}!", "legal".green());
+        println!("{}!", "legal".green());
     }
     else{
         // Or we print a red result
-        print!("{}!", "not correct".red());
+        println!("{}!", "not correct".red());
         exit(-3);
     }
-    println!("!");
 
     // Print the info
     if !get_info(&id_card) {
