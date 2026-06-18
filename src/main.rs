@@ -9,15 +9,24 @@ fn main() {
     let id_card = get_id_card();
 
     // Print the result
-    if verify_id_card(&id_card) && get_info(&id_card) {
+    print!("The form of your ID card is ");
+    if verify_id_card(&id_card) {
         // If there is not any error,we print a green result
-        print!("Your ID card is {}", "legal".green());
+        print!("{}", "legal".green());
     }
     else{
         // Or we print a red result
-        print!("Your ID card is {}", "not correct".red());
+        print!("{}", "not correct".red());
     }
     println!("!");
+
+    // Print the info
+    if !get_info(&id_card) {
+        println!("Your ID card has a few {}","problems".yellow())
+    }
+    else {
+        println!("Your ID card is {}","OK!".green())
+    }
 }
 
 const STANDARD_ID_CARD_LENGTH:u8 = 18;
@@ -55,8 +64,7 @@ fn verify_length(source:&String)->Option<String>{
 }
 
 fn get_info(id_card:&String)->bool{
-    if let Some(error_info) = get_info_from_id_card(&id_card) {
-        println!("{}", error_info);
+    if !get_info_from_id_card(&id_card) {
         return false
     }
 
@@ -73,12 +81,15 @@ fn get_id_card()->String{
     id_card
 }
 
-fn get_info_from_id_card(id_card:&String)->Option<String>{
+fn get_info_from_id_card(id_card:&String)->bool{
     if let Some(got_age) = get_age(&id_card) {
         println!("The age we read is {}", got_age.to_string().bright_green());
     }
+    else{
+        return false
+    }
 
-    None
+    true
 }
 
 fn get_age(id_card:&String)->Option<i16>{
