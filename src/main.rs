@@ -1,4 +1,5 @@
 use std::env::args;
+use std::process::exit;
 use colored::Colorize;
 use chrono::{NaiveDate, Datelike, Local};
 
@@ -9,7 +10,7 @@ fn main() {
 
     // Print the result
     print!("Your ID card is ");
-    if verify_id_card(&id_card) {
+    if verify_id_card(&id_card) && get_info(&id_card) {
         // If there is not any error,we print a green result
         print!("{}", "legal".green());
     }
@@ -82,8 +83,11 @@ fn get_info_from_id_card(id_card:&String)->Option<String>{
 }
 
 fn get_age(id_card:&String)->Option<u8>{
+    // Extract part of the string
+    let birthday_str = &id_card[6..13];
+
     // Get the birthday of the holder of the ID card
-    let birthday = NaiveDate::parse_from_str(&id_card, "%Y-%m-%d");
+    let birthday = NaiveDate::parse_from_str(&birthday_str, "%Y-%m-%d");
 
     // Do check
     let birthday = match birthday {
