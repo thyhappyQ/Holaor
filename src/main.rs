@@ -87,10 +87,18 @@ fn get_id_card()->String{
 
 fn get_info_from_id_card(id_card:&String)->bool{
     if let Some(got_age) = get_age(&id_card) {
-        println!("The age we read is {}", got_age.to_string().bright_green());
+        println!("The age is {}", got_age.to_string().bright_green());
     }
     else{
         return false
+    }
+
+    println!("The sex is ");
+    if get_sex(&id_card) {
+        println!("{}","man".bright_green())
+    }
+    else{
+        println!("{}","woman".bright_green())
     }
 
     true
