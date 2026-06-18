@@ -9,14 +9,13 @@ fn main() {
     let id_card = get_id_card();
 
     // Print the result
-    print!("Your ID card is ");
     if verify_id_card(&id_card) && get_info(&id_card) {
         // If there is not any error,we print a green result
-        print!("{}", "legal".green());
+        print!("Your ID card is {}", "legal".green());
     }
     else{
         // Or we print a red result
-        print!("{}", "not correct".red());
+        print!("Your ID card is {}", "not correct".red());
     }
     println!("!");
 }
@@ -82,12 +81,12 @@ fn get_info_from_id_card(id_card:&String)->Option<String>{
     None
 }
 
-fn get_age(id_card:&String)->Option<u8>{
+fn get_age(id_card:&String)->Option<i16>{
     // Extract part of the string
-    let birthday_str = &id_card[6..13];
+    let birthday_str = &id_card[6..14];
 
     // Get the birthday of the holder of the ID card
-    let birthday = NaiveDate::parse_from_str(&birthday_str, "%Y-%m-%d");
+    let birthday = NaiveDate::parse_from_str(&birthday_str, "%Y%m%d");
 
     // Do check
     let birthday = match birthday {
@@ -102,8 +101,8 @@ fn get_age(id_card:&String)->Option<u8>{
     let local_time = Local::now().date_naive();
 
     // Get age
-    let age = local_time.year() - local_time.year();
-    let age = age as u8; // Turn it into u8
+    let age = local_time.year() - birthday.year();
+    let age = age as i16; // Turn it into u8
 
     // Verify the age to check if it is in a normal range
     let result = varify_age(&age);
@@ -126,8 +125,8 @@ fn get_age(id_card:&String)->Option<u8>{
     None
 }
 
-const NORMAL_MAX_AGE:u8 = 130;
-const NORMAL_MIN_AGE:u8 = 0;
+const NORMAL_MAX_AGE:i16 = 130;
+const NORMAL_MIN_AGE:i16 = 0;
 
 enum AgeResult{
     Large = 0,
@@ -135,7 +134,7 @@ enum AgeResult{
     Few = 2
 }
 
-fn varify_age(age:&u8)->AgeResult{
+fn varify_age(age:&i16)->AgeResult{
     // Check if the age is in a normal range
 
     // Check if it is too big
