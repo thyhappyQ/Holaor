@@ -63,6 +63,6 @@ fn get_id_card()->String{
     id_card
 }
 
-fn get_info_from_id_card(id_card:&String){
-    
+fn get_info_from_id_card(id_card:&String)->Option<String>{
+    None
 }
