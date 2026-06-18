@@ -6,6 +6,19 @@ fn main() {
 
 const STANDARD_ID_CARD_LENGTH:u8 = 18;
 
+fn verify_id_card(id_card:&String)->bool{
+    // Pack all the functions up
+
+    // Check the length of the ID card
+    if let Some(error_info) = verify_length(&id_card) {
+        println!("{}", error_info);
+        return false;
+    }
+
+    // If everything is OK,surely we return true
+    true
+}
+
 fn verify_length(source:&String)->Option<String>{
     // Turn the source string to the chars
     let chars = source.chars();
