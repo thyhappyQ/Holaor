@@ -24,3 +24,13 @@ fn verify_length(source:&String)->Option<String>{
     // If everything is OK,we return "None" to show that there is not any error
     None
 }
+
+fn get_id_card()->String{
+    // Get args
+    let mut args = args();
+
+    // We only peek the first arg that user entered
+    let id_card = args.nth(1).expect("Please enter a ID card");
+
+    id_card
+}
