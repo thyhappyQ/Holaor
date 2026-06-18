@@ -56,7 +56,8 @@ fn verify_length(source:&String)->Option<String>{
 
 fn get_info(id_card:&String)->bool{
     if let Some(error_info) = get_info_from_id_card(&id_card) {
-        return  false
+        println!("{}", error_info);
+        return false
     }
 
     true
