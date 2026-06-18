@@ -1,5 +1,6 @@
 use std::env::args;
 use colored::Colorize;
+use chrono::{NaiveDate, Datelike, Local};
 
 fn main() {
     println!("Start to verify your ID card");
@@ -68,6 +69,9 @@ fn get_info_from_id_card(id_card:&String)->Option<String>{
 }
 
 fn get_age(id_card:&String)->Option<u8>{
+    // Get the birthday of the holder of the ID card
+    let birthday =
+
     None
 }
 
