@@ -66,3 +66,7 @@ fn get_id_card()->String{
 fn get_info_from_id_card(id_card:&String)->Option<String>{
     None
 }
+
+fn get_age(id_card:&String)->Option<u8>{
+    None
+}
