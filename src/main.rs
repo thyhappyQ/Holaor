@@ -1,8 +1,22 @@
 use std::env::args;
+use colored::Colorize;
 
 fn main() {
+    println!("Start to verify your ID card");
+
     let id_card = get_id_card();
-    verify_id_card(&id_card);
+
+    // Print the result
+    print!("Your ID card is ");
+    if verify_id_card(&id_card) {
+        // If there is not any error,we print a green result
+        print!("{}", "legal".green());
+    }
+    else{
+        // Or we print a red result
+        print!("{}", "not correct".red());
+    }
+    println!("!");
 }
 
 const STANDARD_ID_CARD_LENGTH:u8 = 18;
