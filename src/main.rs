@@ -54,6 +54,14 @@ fn verify_length(source:&String)->Option<String>{
     None
 }
 
+fn get_info(id_card:&String)->bool{
+    if let Some(error_info) = get_info_from_id_card(&id_card) {
+        return  false
+    }
+
+    true
+}
+
 fn get_id_card()->String{
     // Get args
     let mut args = args();
