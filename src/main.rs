@@ -1,7 +1,8 @@
 use std::env::args;
 
 fn main() {
-    println!("Hello, world!");
+    let id_card = get_id_card();
+    verify_id_card(&id_card);
 }
 
 const STANDARD_ID_CARD_LENGTH:u8 = 18;
