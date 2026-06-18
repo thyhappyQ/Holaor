@@ -15,7 +15,7 @@ fn main() {
     print!("The form of your ID card is ");
     if result {
         // If there is not any error,we print a green result
-        print!("{}", "legal".green());
+        print!("{}!", "legal".green());
     }
     else{
         // Or we print a red result
