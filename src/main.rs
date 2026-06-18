@@ -140,6 +140,25 @@ fn get_age(id_card:&String)->Option<i16>{
     None
 }
 
+fn get_sex(id_card:&String)->bool{
+    // We think true is a man in this function(and false is a woman)
+
+    // Get No.17 char in the card string
+    let magic_number = id_card.chars().nth(16).expect("Magic number is not here");
+
+    // Turn magic number to u8
+    let magic_number = magic_number.to_digit(10).expect("Failed to parse magic number to u8") as u8;
+
+    // Check if it is an odd
+    if magic_number % 2 != 0 {
+        // It shows the magic number is an odd,so we return "man"
+        return true
+    }
+
+    // Or we return "woman"
+    false
+}
+
 const NORMAL_MAX_AGE:i16 = 130;
 const NORMAL_MIN_AGE:i16 = 0;
 
