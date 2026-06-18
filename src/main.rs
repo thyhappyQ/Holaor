@@ -93,7 +93,7 @@ fn get_info_from_id_card(id_card:&String)->bool{
         return false
     }
 
-    println!("The sex is ");
+    print!("The sex is ");
     if get_sex(&id_card) {
         println!("{}","man".bright_green())
     }
