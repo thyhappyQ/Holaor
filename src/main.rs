@@ -70,7 +70,16 @@ fn get_info_from_id_card(id_card:&String)->Option<String>{
 
 fn get_age(id_card:&String)->Option<u8>{
     // Get the birthday of the holder of the ID card
-    let birthday =
+    let birthday = NaiveDate::parse_from_str(&id_card, "%Y-%m-%d");
+
+    // Do check
+    let birthday = match birthday {
+        Ok(date) => date,
+        Err(_) => {
+            println!("{}","Failed to parse date".red());
+            exit(-1);
+        }
+    };
 
     None
 }
