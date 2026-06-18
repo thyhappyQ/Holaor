@@ -81,6 +81,31 @@ fn get_age(id_card:&String)->Option<u8>{
         }
     };
 
+    // Get local time
+    let local_time = Local::now().date_naive();
+
+    // Get age
+    let age = local_time.year() - local_time.year();
+    let age = age as u8; // Turn it into u8
+
+    // Verify the age to check if it is in a normal range
+    let result = varify_age(&age);
+
+    // If it is OK,we return the age,or we will return None and print the error
+    match result{
+        AgeResult::Normal=>{
+            return Some(age);
+        }
+
+        AgeResult::Few=>{
+            println!("{}","The age is too few".red());
+        }
+
+        AgeResult::Large=>{
+            println!("{}","The age is too large".red());
+        }
+    }
+
     None
 }
 
