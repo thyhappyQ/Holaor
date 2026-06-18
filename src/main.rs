@@ -4,7 +4,7 @@ use colored::Colorize;
 use chrono::{NaiveDate, Datelike, Local};
 
 fn main() {
-    println!("Start to verify your ID card");
+    println!("开始读取...");
 
     let id_card = get_id_card();
 
@@ -12,23 +12,23 @@ fn main() {
     let result = verify_id_card(&id_card);
 
     // Print the result
-    print!("The form of your ID card is ");
+    print!("身份证格式：");
     if result {
         // If there is not any error,we print a green result
-        println!("{}!", "legal".green());
+        println!("{}!", "正确".green());
     }
     else{
         // Or we print a red result
-        println!("{}!", "not correct".red());
+        println!("{}!", "错误".red());
         exit(-3);
     }
 
     // Print the info
     if !get_info(&id_card) {
-        println!("Your ID card has a few {}","problems".yellow())
+        println!("身份证信息有问题，这是个{}","警告".yellow())
     }
     else {
-        println!("Your ID card is {}","OK!".green())
+        println!("身份证{}","正常!".green())
     }
 }
 
@@ -56,9 +56,9 @@ fn verify_length(source:&String)->Option<String>{
 
     // Check if the length of the ID card is correct
     if STANDARD_ID_CARD_LENGTH != length as u8 {
-        return Some("The length of this ID card is ".to_string()
+        return Some("身份证的长度是：".to_string()
                 + length.to_string().as_str()
-                + ",but we except "
+                + ",但我们期望："
                 + STANDARD_ID_CARD_LENGTH.to_string().as_str());
     }
 
@@ -79,25 +79,25 @@ fn get_id_card()->String{
     let mut args = args();
 
     // We only peek the first arg that user entered
-    let id_card = args.nth(1).expect("Please enter a ID card");
+    let id_card = args.nth(1).expect("请输入一个身份证号");
 
     id_card
 }
 
 fn get_info_from_id_card(id_card:&String)->bool{
     if let Some(got_age) = get_age(&id_card) {
-        println!("The age is {}", got_age.to_string().bright_green());
+        println!("年龄是：{}", got_age.to_string().bright_green());
     }
     else{
         return false
     }
 
-    print!("The sex is ");
+    print!("性别是：");
     if get_sex(&id_card) {
-        println!("{}","man".bright_green())
+        println!("{}","男".bright_green())
     }
     else{
-        println!("{}","woman".bright_green())
+        println!("{}","女".bright_green())
     }
 
     true
@@ -114,7 +114,7 @@ fn get_age(id_card:&String)->Option<i16>{
     let birthday = match birthday {
         Ok(date) => date,
         Err(_) => {
-            println!("{}","Failed to parse date".red());
+            println!("{}","解析日期失败".red());
             exit(-1);
         }
     };
@@ -136,11 +136,11 @@ fn get_age(id_card:&String)->Option<i16>{
         }
 
         AgeResult::Few=>{
-            println!("{}","The age is too few".red());
+            println!("{}","年龄是个负数".red());
         }
 
         AgeResult::Large=>{
-            println!("{}","The age is too large".red());
+            println!("{}","年龄似乎太大了".red());
         }
     }
 
@@ -151,10 +151,10 @@ fn get_sex(id_card:&String)->bool{
     // We think true is a man in this function(and false is a woman)
 
     // Get No.17 char in the card string
-    let magic_number = id_card.chars().nth(16).expect("Magic number is not here");
+    let magic_number = id_card.chars().nth(16).expect("序列数读取失败");
 
     // Turn magic number to u8
-    let magic_number = magic_number.to_digit(10).expect("Failed to parse magic number to u8") as u8;
+    let magic_number = magic_number.to_digit(10).expect("转换序列数失败") as u8;
 
     // Check if it is an odd
     if magic_number % 2 != 0 {
